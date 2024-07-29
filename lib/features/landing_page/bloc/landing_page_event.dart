@@ -33,3 +33,20 @@ class CloseRegisterSuccessDialog extends LandingPageEvent {
   @override
   List<Object?> get props => [];
 }
+
+class Initialize extends LandingPageEvent {
+
+  const Initialize();
+
+  @override
+  List<Object?> get props => [];
+}
+
+class ChangeLocale extends LandingPageEvent {
+  final String locale;
+
+  const ChangeLocale(this.locale);
+
+  @override
+  List<Object?> get props => [locale];
+}

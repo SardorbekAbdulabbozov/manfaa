@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:manfaa/components/global_variables.dart';
-import 'package:manfaa/core/dependency/dependency_injection.dart';
 import 'package:manfaa/features/landing_page/bloc/landing_page_bloc.dart';
 import 'package:manfaa/features/landing_page/data/repository/landing_page_repository.dart';
 import 'package:manfaa/features/landing_page/presentation/landing_page.dart';
@@ -20,7 +19,8 @@ final GoRouter router = GoRouter(
       parentNavigatorKey: rootKey,
       builder: (context, state) => BlocProvider(
         create: (context) {
-          return LandingPageBloc(injector.get<LandingPageRepostiory>());
+          return LandingPageBloc(injector.get<LandingPageRepostiory>())
+            ..add(const Initialize());
         },
         child: const LandingPage(),
       ),

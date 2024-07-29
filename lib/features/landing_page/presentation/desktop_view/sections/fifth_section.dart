@@ -25,6 +25,7 @@ class FifthSection extends StatefulWidget {
 
 class _FifthSectionState extends State<FifthSection> {
   String contactInformation = '';
+  TextEditingController controller = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -55,6 +56,7 @@ class _FifthSectionState extends State<FifthSection> {
                     child: TextField(
                       cursorColor: Colors.black,
                       onChanged: (value) => contactInformation = value,
+                      controller: controller,
                       decoration: InputDecoration(
                         border: const OutlineInputBorder(),
                         focusedBorder: OutlineInputBorder(
@@ -69,6 +71,7 @@ class _FifthSectionState extends State<FifthSection> {
                   text: LocaleKeys.submit.tr(),
                   onPressed: () {
                     widget.onSubmitted.call(contactInformation.trim());
+                    controller.clear();
                   },
                 ),
               ],

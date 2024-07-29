@@ -4,11 +4,17 @@ import 'package:flutter/material.dart';
 import 'package:manfaa/core/config/localization/locale_keys.g.dart';
 import 'package:manfaa/core/theme/colors/app_colors.dart';
 import 'package:manfaa/core/theme/text_styles/app_text_styles.dart';
+import 'package:manfaa/features/landing_page/bloc/landing_page_bloc.dart';
 
 class SecondSection extends StatelessWidget {
-  const SecondSection({super.key, this.isMobileView = false});
+  const SecondSection({
+    super.key,
+    this.isMobileView = false,
+    required this.bloc,
+  });
 
   final bool isMobileView;
+  final LandingPageBloc bloc;
 
   @override
   Widget build(BuildContext context) {
@@ -36,10 +42,11 @@ class SecondSection extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Padding(
-            padding: const EdgeInsets.symmetric(vertical: 24),
+            padding: EdgeInsets.only(top: 24, bottom: isMobileView ? 16 : 0),
             child: Text(
               LocaleKeys.solutionTitle.tr(),
               style: AppTextStyles.blackSize24Weight600,
+              textAlign: TextAlign.center,
             ),
           ),
           Visibility(
@@ -57,7 +64,7 @@ class SecondSection extends StatelessWidget {
                   );
                 },
                 separatorBuilder: (_, index) => SizedBox(
-                  height: isMobileView ? 0 : 36,
+                  height: isMobileView ? 0 : 16,
                   width: isMobileView ? 36 : 0,
                 ),
                 itemCount: solutions.length,
@@ -147,20 +154,29 @@ class SolutionItem extends StatelessWidget {
           ),
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 8),
-            child: Text(title, style: AppTextStyles.blackSize16Weight600),
+            child: SizedBox(
+              width: (size.width * 3) / 8,
+              child: Text(
+                title,
+                style: AppTextStyles.blackSize16Weight600,
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+              ),
+            ),
           ),
           SizedBox(
             width: isMobileView ? ((2 * size.width) / 3 - 32) : size.width / 4,
             child: Text(
               description,
               style: AppTextStyles.blackSize14Weight500,
-              // overflow: TextOverflow.ellipsis,
+              maxLines: 6,
+              overflow: TextOverflow.ellipsis,
             ),
           ),
         ],
       ),
       Visibility(
-        visible: size.width > 680,
+        visible: size.width > 772,
         child: Container(
           width: isMobileView ? null : 250,
           decoration: isMobileView
@@ -192,9 +208,12 @@ class SolutionItem extends StatelessWidget {
               children: children.reversed.toList(),
             ),
           )
-        : Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: children,
+        : Padding(
+            padding: EdgeInsets.symmetric(horizontal: size.width / 8),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: children,
+            ),
           );
   }
 }

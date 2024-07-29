@@ -57,7 +57,7 @@ class UniversalDialog extends StatelessWidget {
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     elevation: 0,
-                    backgroundColor: AppColors.f2a33a,
+                    backgroundColor: AppColors.f0c271,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(12),
                     ),

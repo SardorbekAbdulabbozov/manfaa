@@ -12,11 +12,12 @@ void main() async {
     EasyLocalization(
       path: 'lib/core/config/localization',
       supportedLocales: const [
-        Locale("en", "EN"),
-        Locale("uz", "UZ"),
-        Locale("ru", "RU"),
+        Locale("en"),
+        Locale("uz"),
+        Locale("ru"),
       ],
-      fallbackLocale: const Locale("en", "EN"),
+      fallbackLocale: const Locale("en"),
+      startLocale: Locale(storageService.getLocale()),
       child: const Manfaa(),
     ),
   );

@@ -1,15 +1,15 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
-import 'package:get_it/get_it.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
+import 'package:manfaa/components/global_variables.dart';
 import 'package:manfaa/core/api_client/api_client.dart';
+import 'package:manfaa/core/storage/storage.dart';
 import 'package:manfaa/features/landing_page/data/repository/landing_page_repository.dart';
 import 'package:manfaa/features/landing_page/data/repository/landing_page_repository_impl.dart';
 
-final injector = GetIt.instance;
-
 Future<void> setUpDependencies() async {
+  injector.registerSingleton<Storage>(await Storage.init());
   injector.registerFactory<Dio>(
     () => Dio()
       ..options = BaseOptions(

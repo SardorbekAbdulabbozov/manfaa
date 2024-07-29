@@ -3,6 +3,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:manfaa/components/global_variables.dart';
 import 'package:manfaa/components/widgets/action_button.dart';
 import 'package:manfaa/components/widgets/universal_dialog.dart';
 import 'package:manfaa/core/config/localization/locale_keys.g.dart';
@@ -62,6 +63,7 @@ class MobileView extends StatelessWidget {
           ),
           drawer: Drawer(
             backgroundColor: Colors.white,
+            elevation: 0,
             shape: const RoundedRectangleBorder(
               borderRadius: BorderRadius.only(
                 topRight: Radius.circular(8),
@@ -112,6 +114,45 @@ class MobileView extends StatelessWidget {
                   ),
                   const Spacer(),
                   Padding(
+                    padding: const EdgeInsets.only(left: 24, bottom: 16),
+                    child: Material(
+                      color: AppColors.f5f5f5,
+                      borderRadius: BorderRadius.circular(8),
+                      child: DropdownButton<String>(
+                        padding: const EdgeInsets.symmetric(horizontal: 16),
+                        value: state.locale,
+                        items: const [
+                          DropdownMenuItem(
+                            value: "uz",
+                            child: Text("O'zbek"),
+                          ),
+                          DropdownMenuItem(
+                            value: "en",
+                            child: Text("English"),
+                          ),
+                          DropdownMenuItem(
+                            value: "ru",
+                            child: Text("Русский"),
+                          ),
+                        ],
+                        onChanged: (locale) async {
+                          if (locale != null) {
+                            bloc.add(ChangeLocale(locale));
+                            await context.setLocale(Locale(locale));
+                            await storageService.setLocale(locale);
+                          }
+                        },
+                        icon: const Icon(Icons.keyboard_arrow_down_rounded),
+                        style: AppTextStyles.blackSize16Weight600,
+                        underline: const SizedBox.shrink(),
+                        focusColor: Colors.transparent,
+                        dropdownColor: Colors.white,
+                        borderRadius: BorderRadius.circular(8),
+                        alignment: Alignment.center,
+                      ),
+                    ),
+                  ),
+                  Padding(
                     padding: const EdgeInsets.only(left: 24),
                     child: ActionButton(
                       onPressed: () =>
@@ -132,9 +173,9 @@ class MobileView extends StatelessWidget {
                   onTap: () => bloc.add(const ChangeSection(index: 4)),
                   isMobileView: true,
                 ),
-                const SecondSection(isMobileView: true),
-                const ThirdSection(isMobileView: true),
-                const FourthSection(),
+                SecondSection(isMobileView: true, bloc: bloc),
+                ThirdSection(isMobileView: true, bloc: bloc),
+                FourthSection(bloc: bloc),
                 FifthSection(
                   isMobileView: true,
                   onSubmitted: (contactInformation) {

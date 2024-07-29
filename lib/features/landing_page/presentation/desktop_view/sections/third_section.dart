@@ -4,11 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:manfaa/core/config/localization/locale_keys.g.dart';
 import 'package:manfaa/core/theme/colors/app_colors.dart';
 import 'package:manfaa/core/theme/text_styles/app_text_styles.dart';
+import 'package:manfaa/features/landing_page/bloc/landing_page_bloc.dart';
 
 class ThirdSection extends StatelessWidget {
-  const ThirdSection({super.key, this.isMobileView = false});
+  const ThirdSection({super.key, this.isMobileView = false, required this.bloc});
 
   final bool isMobileView;
+  final LandingPageBloc bloc;
 
   @override
   Widget build(BuildContext context) {
